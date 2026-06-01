@@ -6,5 +6,5 @@ vendor/
 .bundle/
 Gemfile.lock
 
-# Working doc, kept out of the public repo.
-DISTRIBUTION.md
+# Working docs, kept out of the public repo.
+DISTRIBUTION*.md

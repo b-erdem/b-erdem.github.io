@@ -4,7 +4,7 @@ title: "An AI wrote its own TLA+ invariant and caught a real, unfixed etcd bug"
 date: 2026-06-01
 ---
 
-I gave a tool the execution traces of a small etcd program and no properties to check. It wrote a TLA+ specification, invented its own safety invariant, ran a model checker, and produced a counterexample. That counterexample matches an open, unfixed etcd issue, filed in April 2026, after the training cutoff of the model it used.
+I gave a tool the execution traces of a small etcd program and no properties to check. It wrote a TLA+ specification, invented its own safety invariant, ran a model checker, and produced a counterexample. That counterexample matches an open, unfixed etcd issue, filed in April 2026, after the training cutoff of the model it used, Claude Sonnet 4.5.
 
 It's less magical than that sounds. I'll walk through what happened, and the parts it doesn't prove.
 
@@ -90,6 +90,6 @@ A model saying "this looks racy" isn't worth much on its own. A spec and a model
 
 ## How it works
 
-attest is written in Elixir. It takes the source and the execution traces, has a frontier model propose a TLA+ spec grounded in those traces (they are treated as ground truth, so the spec has to admit every run you observed), checks it with TLC, and then either reports no violation or explains the counterexample. The model only proposes. The verdict comes from TLC.
+attest is written in Elixir. It takes the source and the execution traces, has a frontier model (Claude Sonnet 4.5) propose a TLA+ spec grounded in those traces (they are treated as ground truth, so the spec has to admit every run you observed), checks it with TLC, and then either reports no violation or explains the counterexample. The model only proposes. The verdict comes from TLC.
 
 It's early, and not open source yet. If you run distributed systems, especially if AI is writing more of that code than it used to, and you want to try it on your own traces or just compare notes, I'm at baris@erdem.dev.
