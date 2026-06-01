@@ -6,7 +6,7 @@ date: 2026-06-01
 
 I gave a tool the execution traces of a small etcd program and no properties to check. It wrote a TLA+ specification, invented its own safety invariant, ran a model checker, and produced a counterexample. That counterexample matches an open, unfixed etcd issue, filed in April 2026, after the training cutoff of the model it used.
 
-That sounds more magical than it is. Below is what happened, and the things it does not prove.
+It's less magical than that sounds. I'll walk through what happened, and the parts it doesn't prove.
 
 ## Why I built this
 
@@ -14,7 +14,7 @@ More of our distributed-systems code is getting written by AI agents now. The bu
 
 The question I keep coming back to is whether the gate could write the spec for you, from what the code actually does, and just tell you what breaks. AI writing the check on the code, not the code itself. The tool is called attest. This is the first finding from it I think is worth showing.
 
-## The target: a real, open, post-cutoff bug
+## The bug
 
 [etcd-io/etcd#21638](https://github.com/etcd-io/etcd/issues/21638), filed April 2026 against v3.6.10, still open:
 
@@ -52,9 +52,7 @@ ChannelYieldConsistency ==
 
 That says: once the channel has yielded and the lease is revoked, the revision it handed you can't be older than the current one. TLC broke it in 55 states with a six-step counterexample, walking the same grant, put, keepalive, revoke, yield path the trace shows. One turn, about thirty cents.
 
-attest doesn't stop at "violated." Its explanation phase writes a root-cause document that walks the counterexample, points at the lines doing the receive, rates the severity, and suggests calling `kaCancel()` before `Revoke()` as a workaround.
-
-A model "noticing something" wouldn't be worth much. The useful part is that the output is a checkable artifact: a formal spec, a counterexample TLC verified, and a writeup you can read, re-run, and send to a maintainer.
+attest doesn't stop at "violated." Its explanation phase writes a root-cause document: it walks the counterexample, points at the lines doing the receive, and rates severity, then suggests calling `kaCancel()` before `Revoke()` as a workaround. So what you get out of a run is a TLA+ spec, a counterexample the model checker confirmed, and a writeup you could send to a maintainer.
 
 ## "But did you lead the witness?"
 
@@ -88,7 +86,7 @@ The other direction matters too. On a gossip counter I wrote to be correct, atte
 
 ## Why a spec, and not just a flag
 
-A model saying "this looks racy" isn't worth much. A TLA+ spec plus a model-checked counterexample is, because the artifact doesn't depend on who wrote the code. It checks the behaviour you observed whether a human or an LLM produced it, it reproduces, and someone who doesn't trust the model at all can still read it and run it themselves. That independence is the whole reason to put a gate there.
+A model saying "this looks racy" isn't worth much on its own. A spec and a model-checked counterexample are, because the artifact doesn't depend on who wrote the code. It checks the behaviour you observed whether a human or an LLM produced it, it reproduces, and someone who doesn't trust the model can read it and rerun it for themselves. That independence is the point of a gate.
 
 ## How it works
 
