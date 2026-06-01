@@ -1,0 +1,13 @@
+title: Baris Erdem
+email: baris@erdem.dev
+description: >-
+  Systems software, formal methods, and the BEAM. Notes on what I'm building.
+# If you attach a custom domain later, set this to it (e.g. https://yourdomain.example).
+url: "https://b-erdem.github.io"
+theme: minima
+plugins:
+  - jekyll-feed
+
+# Minima shows these pages in the header nav.
+header_pages:
+  - about.md
