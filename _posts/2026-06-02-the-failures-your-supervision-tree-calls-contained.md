@@ -112,4 +112,4 @@ mix firebreak --format github # PR annotations in CI
 mix firebreak --observe my_app@127.0.0.1   # fold in a live node's real shape
 ```
 
-The Livebook and TeslaMate findings above each took one static run to surface. If you run a real Elixir system, point it at your own tree and see what crosses it. If it finds something useful, or cries wolf, I'd like to hear which. I'm at **baris@erdem.dev**.
+The Livebook and TeslaMate findings above each took one static run to surface. If you run a real Elixir system, point it at your own tree and see what crosses it. If it finds something useful, or cries wolf, I'd like to hear which. I'm at **brserdem@proton.me**.

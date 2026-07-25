@@ -92,4 +92,4 @@ A model saying "this looks racy" isn't worth much on its own. A spec and a model
 
 attest is written in Elixir. It takes the source and the execution traces, has a frontier model (Claude Sonnet 4.5) propose a TLA+ spec grounded in those traces (they are treated as ground truth, so the spec has to admit every run you observed), checks it with TLC, and then either reports no violation or explains the counterexample. The model only proposes. The verdict comes from TLC.
 
-It's early, and not open source yet. If you run distributed systems, especially if AI is writing more of that code than it used to, and you want to try it on your own traces or just compare notes, I'm at baris@erdem.dev.
+It's early, and not open source yet. If you run distributed systems, especially if AI is writing more of that code than it used to, and you want to try it on your own traces or just compare notes, I'm at brserdem@proton.me.

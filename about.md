@@ -12,4 +12,4 @@ Some of what I've worked on:
 - **lockstep**, a concurrency-testing framework for the BEAM (DPOR, PCT, and deterministic replay).
 - A handful of Ada/SPARK formal-methods libraries.
 
-Reach me at **baris@erdem.dev**.
+Reach me at **brserdem@proton.me**.
